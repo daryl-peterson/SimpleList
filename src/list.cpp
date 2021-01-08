@@ -9,15 +9,14 @@ void List::print_menu()
 {
     int choice;
 
-    cout << " ************************************************\n";
-    cout << " *                     MENU                     *\n";
-    cout << " * 1 - Print list                               *\n";
-    cout << " * 2 - Add to list                              *\n";
-    cout << " * 3 - Delete from list                         *\n";
-    cout << " * 4 - Quit                                     *\n";
-    cout << " *                                              *\n";
-    cout << " ************************************************\n\n";
-
+    cout << page_sep;
+    cout << seperator << "\n";
+    cout << menu_center("MENU");
+    cout << menu_left("1 - Print Item List");
+    cout << menu_left("2 - Add Item");
+    cout << menu_left("3 - Delete Item");
+    cout << menu_left("4 - Quit");
+    cout << seperator << "\n\n";
     cout << " Enter your choice: ";
     cin >> choice;
 
@@ -51,17 +50,18 @@ void List::add_item()
 {
     string item;
 
-    cout << "\n\n\n\n\n";
-    cout << " ************************************************\n";
-    cout << " *                  Add Item                    *\n";
-    cout << " ************************************************\n";
+    cout << page_sep;
+    cout << seperator << "\n";
+    cout << menu_center("Add Item");
+    cout << seperator << "\n\n";
     cout << " Type in an item and press enter:  ";
 
     cin >> item;
     list.push_back(item);
 
     cout << "\n"
-         << " Item Added \n\n\n\n";
+         << " Item Added \n";
+
     cin.clear();
 
     print_menu();
@@ -75,10 +75,10 @@ void List::delete_item()
 {
     int item;
 
-    cout << "\n\n\n\n\n";
-    cout << " ************************************************\n";
-    cout << " *                 Delete Item                  *\n";
-    cout << " ************************************************\n\n";
+    cout << page_sep;
+    cout << seperator << "\n";
+    cout << menu_center("Delete Item");
+    cout << seperator << "\n\n";
 
     if (list.size())
     {
@@ -86,7 +86,7 @@ void List::delete_item()
         cout << "\n\n";
         cout << " Enter Item Index: ";
         cin >> item;
-        list.erase(list.begin()+item);
+        list.erase(list.begin() + item);
         cin.clear();
     }
     else
@@ -105,13 +105,13 @@ void List::delete_item()
  */
 void List::print_list()
 {
-    cout << "\n\n\n\n\n";
-    cout << " ************************************************\n";
-    cout << " *                  Printing List               *\n";
-    cout << " ************************************************\n\n";
+    cout << page_sep;
+    cout << seperator << "\n";
+    cout << menu_center("Printing List");
+    cout << seperator << "\n\n";
+
     list_items();
 
-    cout << "\n\n\n\n\n";
     print_menu();
 }
 
@@ -126,4 +126,32 @@ void List::list_items()
             cout << " " << i << ": " << list[i] << "\n";
         }
     }
+}
+
+string List::menu_center(string text)
+{
+    int int_txt, int_sep, int_pad;
+    string str_pad, str_return;
+
+    int_txt = text.length();
+    int_sep = seperator.length();
+
+    int_pad = ((int_sep - int_txt) / 2) - 4;
+
+    str_pad = std::string(int_pad, ' ');
+    str_return = " * " + str_pad + text + str_pad + str_pad;
+    str_return = str_return.substr(0, int_sep - 1) + "*\n";
+    return str_return;
+}
+
+string List::menu_left(string text)
+{
+    int int_sep;
+
+    int_sep = seperator.length();
+    string str_pad, str_return;
+
+    str_return = " * " + text + std::string(50, ' ');
+    str_return = str_return.substr(0, int_sep - 1) + "*\n";
+    return str_return;
 }
