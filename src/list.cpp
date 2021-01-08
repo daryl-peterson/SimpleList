@@ -73,7 +73,7 @@ void List::add_item()
  */
 void List::delete_item()
 {
-    string item;
+    int item;
 
     cout << "\n\n\n\n\n";
     cout << " ************************************************\n";
@@ -86,6 +86,7 @@ void List::delete_item()
         cout << "\n\n";
         cout << " Enter Item Index: ";
         cin >> item;
+        list.erase(list.begin()+item);
         cin.clear();
     }
     else
